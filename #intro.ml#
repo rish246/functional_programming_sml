@@ -1,0 +1,4 @@
+val x = 5;
+
+fun thisVal = 5;
+

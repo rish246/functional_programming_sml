@@ -1,0 +1,10 @@
+val my_first_val = 5;
+
+fun this_val(x : int list) =
+    if null x
+    then 0
+    else
+	hd(x) + this_val(tl(x));
+
+sum_list = this_val([1, 3, 5]);
+			
