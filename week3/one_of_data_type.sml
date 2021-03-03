@@ -21,3 +21,47 @@ fun eval (e : exp) =
 
 
 
+
+fun max_constant (e : exp) =  
+    case e of 
+        Number e1 => e1
+        | Negation e1 => max_constant e1
+        | Addition(e1, e2) => Int.max(max_constant e1, max_constant e2)
+        | Multiply(e1, e2) => Int.max(max_constant e1, max_constant e2)
+
+
+
+(* make List as an inbuilt data type *)
+datatype intList = Empty 
+                |  Cons of int * intList
+
+val my_new_list : intList = Cons(3, Empty)
+
+(* Get the head of our list *)
+fun get_hd our_list = 
+    case our_list of 
+        Empty => 0
+       | Cons(hd_val, our_list') => hd_val
+
+
+fun get_tl our_list = 
+    case our_list of 
+        Empty => Empty
+        | Cons(hd_val, our_list') => our_list'
+
+
+
+(* Binary Tree Implementation in SML *)
+(* Make a TreeNode datatype *)
+datatype 'a node = Leaf of 'a
+                |  Node of 'a * ('a node) * ('a node)
+        
+(* Lets contruct a node *)
+val our_tree = Node(3, Leaf 3, Leaf 3)
+
+fun sum_tree tree = 
+    case tree of 
+        Leaf v => v
+       | Node(v, left, right) => v + sum_tree left + sum_tree right
+
+val sum_our_tree = sum_tree our_tree = 9
