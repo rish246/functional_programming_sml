@@ -21,6 +21,7 @@ void merge(Node *l1, Node *l2)
 {
     if (!l1)
         return;
+        
     if (!l1->next)
     {
         l1->next = l2;
