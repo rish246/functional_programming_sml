@@ -69,3 +69,49 @@ datatype move = Discard of card | Draw
 exception IllegalMove
 
 (* put your solutions for problem 2 here *)
+fun card_color(sample_card) = 
+    case sample_card of 
+    (Clubs, _) => Black 
+    | (Spades, _) => Black 
+    | (Diamonds, _ ) => Red 
+    | (Hearts, _) => Red 
+
+
+fun card_value (sample_card) = 
+    case sample_card of
+    (_, Num e) => e
+    | (_, Ace) => 11
+    | _ => 10
+
+
+fun remove_card(cards, c, exp) = 
+    let fun aux(cards, acc, found) = 
+        case cards of 
+            [] => acc
+        |   hd_card :: tl_cards => if hd_card = c andalso found = false
+                    then aux(tl_cards, acc, true)
+                    else aux(tl_cards, hd_card :: acc, found)
+
+    in 
+        aux(cards, [], false)
+    end
+        
+
+fun all_same_color(cards) = 
+    let fun aux(cards, color) = 
+        case cards of 
+            [c] => card_color(c) = color
+        |   c :: cs =>  if card_color(c) = color then aux(cs, color) else false
+    in
+       aux(cards, card_color(hd cards))
+    end
+
+
+fun sum_cards(cards) = 
+    let fun aux(cards, acc) = 
+        case cards of 
+            [] => acc
+        |   c :: cs => aux(cs, acc + card_value(c))
+    in
+        aux(cards, 0)
+    end
